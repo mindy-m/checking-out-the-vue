@@ -1,25 +1,80 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import {computed, ref} from "vue";
+const funCount = ref(0);
+const burgersNeeded = computed( () => {
+  return funCount.value*3;
+})
+const currentTextValue = ref("");
+const vipList = ref([
+  "Henry",
+  "Penelope",
+  "Yolanda",
+]);
+const currentVipName = ref("");
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <br>
+    <br>
+    <br>
+      <h1>WARNING:</h1>
+      <h1>Watch out for goats!</h1>
     </div>
   </header>
 
+  <!-- class="container" attribute on main to have semi-transparent background coloring-->
   <main>
-    <TheWelcome />
+    <br>
+    <br>
+    <br>
+    <div class="container">
+      <h2>We have {{ funCount }} funs!</h2>
+      <h2>(Which totally makes sense.)</h2>
+      <div>
+          <button
+          @click="funCount += 1"
+          >Click Me To Add Some Fun!!!</button>
+      </div>
+      <br>
+      <h4>Based off how much fun we're having, we're going to need {{ burgersNeeded }} burgers up in here....</h4>
+  </div>
+  <div class="container">
+    <div class="block-buttons">
+      <!-- V-model is bi-directional data binding -->
+      <input type="text" v-model="currentTextValue">
+      <button @click="currentTextValue = 'burgers';">Set to "burgers"</button>
+      <button @click="currentTextValue = 'pretzels';">Set to "pretzels"</button>
+      <button @click="currentTextValue = 'macaronis';">Set to "macaronis"</button>
+      <button @click="currentTextValue = 'spinach leaves';">Set to "spinach leaves"</button>
+    </div>
+      <!-- Read binding -->
+      <h3>What is currentTextValue? "{{ currentTextValue }}"</h3>
+  </div>
+  <div class="container">
+    <h2>
+      This is a section about VIPs...
+    </h2>
+    <ul>
+      <!-- Iterates over each dude in vipList with v-for -->
+      <li v-for="dude in vipList" :key="dude">{{ dude }}</li>
+    </ul>
+    <div>
+      <input type="text" v-model="currentVipName">
+      <button @click="vipList.push(currentVipName)">Add VIP!</button>
+    </div>
+  </div>
   </main>
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
+}
+
+.block-buttons button{
+  display:block;
 }
 
 .logo {
