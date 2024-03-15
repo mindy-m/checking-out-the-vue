@@ -1,6 +1,9 @@
 <script setup>
+// Extracting named exports from the Vue library
 import {computed, ref} from "vue";
+import Company from "./Company";
 const funCount = ref(0);
+console.log("What is funCount?", funCount);
 const burgersNeeded = computed( () => {
   return funCount.value*3;
 })
